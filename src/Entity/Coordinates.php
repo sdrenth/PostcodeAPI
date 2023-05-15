@@ -6,9 +6,9 @@ namespace Metapixel\PostcodeAPI\Entity;
 
 final class Coordinates
 {
-    protected float $latitude;
+    private float $latitude;
 
-    protected float $longitude;
+    private float $longitude;
 
     public function getLatitude(): float
     {

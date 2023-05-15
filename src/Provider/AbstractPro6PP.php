@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Metapixel\PostcodeAPI\Provider;
 
-use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\Address;
+use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
-use Metapixel\PostcodeAPI\Event\PostSearchRequestEvent;
 
 abstract class AbstractPro6PP extends Provider
 {
-    CONST BASE_URL = 'https://api.pro6pp.nl/v2/autocomplete/';
+    public const BASE_URL = 'https://api.pro6pp.nl/v2/autocomplete/';
 
     protected string $languageEndpoint = 'nl';
 
     public function findBySearchRequest(SearchRequest $searchRequest): Address
     {
         $params = [
-            'authKey' => $this->getApiKey()
+            'authKey' => $this->getApiKey(),
         ];
 
         if (null !== $searchRequest->getZipcode()) {
@@ -86,13 +85,16 @@ abstract class AbstractPro6PP extends Provider
             ->setProvince($response['province'] ?? null)
             ->setStreet($response['street'] ?? null)
             ->setHouseNumber($response['streetNumber'] ? (string) $response['streetNumber'] : null)
-            ->setAddition($response['premise'] ?? null);
+            ->setAddition($response['premise'] ?? null)
+        ;
 
         if (!empty($latitude = $response['lat']) && !empty($longitude = $response['lng'])) {
             $coordinates = new Coordinates();
 
-            $coordinates->setLatitude($latitude)
-                ->setLongitude($longitude);
+            $coordinates
+                ->setLatitude($latitude)
+                ->setLongitude($longitude)
+            ;
 
             $address->setCoordinates($coordinates);
         }

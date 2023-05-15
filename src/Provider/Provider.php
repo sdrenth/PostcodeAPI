@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Metapixel\PostcodeAPI\Provider;
 
-use Metapixel\PostcodeAPI\AddressRepositoryInterface;
 use GuzzleHttp\Client;
-use Metapixel\PostcodeAPI\Event\PreSearchRequestEvent;
-use Metapixel\PostcodeAPI\Event\PostSearchRequestEvent;
-use Psr\EventDispatcher\StoppableEventInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Metapixel\PostcodeAPI\Entity\Address;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
+use Metapixel\PostcodeAPI\Event\PostSearchRequestEvent;
+use Metapixel\PostcodeAPI\Event\PreSearchRequestEvent;
+use Psr\EventDispatcher\StoppableEventInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 abstract class Provider implements ProviderInterface
 {
@@ -59,7 +58,7 @@ abstract class Provider implements ProviderInterface
         return $this->httpClient;
     }
 
-    public function setHttpClient(Client $client): Provider
+    public function setHttpClient(Client $client): self
     {
         $this->httpClient = $client;
 
@@ -70,7 +69,8 @@ abstract class Provider implements ProviderInterface
     {
         /** @var SearchRequest $searchRequest */
         $searchRequest = (new SearchRequest())
-            ->setZipcode($zipcode);
+            ->setZipcode($zipcode)
+        ;
 
         return $this->findBySearchRequest($searchRequest);
     }
@@ -85,7 +85,8 @@ abstract class Provider implements ProviderInterface
         /** @var SearchRequest $searchRequest */
         $searchRequest = (new SearchRequest())
             ->setZipcode($zipcode)
-            ->setHouseNumber($houseNumber);
+            ->setHouseNumber($houseNumber)
+        ;
 
         return $this->findBySearchRequest($searchRequest);
     }

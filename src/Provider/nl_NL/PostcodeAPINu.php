@@ -12,7 +12,7 @@ use Metapixel\PostcodeAPI\Provider\Provider;
 
 class PostcodeAPINu extends Provider
 {
-    const BASE_URL = 'https://api.postcodeapi.nu/v3/lookup';
+    public const BASE_URL = 'https://api.postcodeapi.nu/v3/lookup';
 
     public function find(string $zipcode): Address
     {
@@ -44,8 +44,8 @@ class PostcodeAPINu extends Provider
         $response = $client
             ->request('GET', $this->getRequestUrl(), [
                 'headers' => [
-                    'X-Api-Key' => $this->getApiKey()
-                ]
+                    'X-Api-Key' => $this->getApiKey(),
+                ],
             ])
         ;
 
@@ -70,8 +70,10 @@ class PostcodeAPINu extends Provider
 
             [$latitude, $longitude] = $response['location']['coordinates'];
 
-            $coordinates->setLatitude($latitude)
-                ->setLongitude($longitude);
+            $coordinates
+                ->setLatitude($latitude)
+                ->setLongitude($longitude)
+            ;
 
             $address->setCoordinates($coordinates);
         }

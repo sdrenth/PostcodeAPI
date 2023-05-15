@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Metapixel\PostcodeAPI\Factory;
 
-use Metapixel\PostcodeAPI\Provider\Provider;
 use Metapixel\PostcodeAPI\Exception\InvalidArgumentException;
+use Metapixel\PostcodeAPI\Provider\Provider;
 
 class ProviderFactory
 {
@@ -18,9 +18,11 @@ class ProviderFactory
             throw new InvalidArgumentException(sprintf('Unable to use the provider "%s"', $className));
         }
 
-        /** @var Provider $class */
-        $class = new $providerClass;
+        $providerObject = new $providerClass();
+        if (!$providerObject instanceof Provider) {
+            throw new InvalidArgumentException(sprintf('Unable to use the provider "%s"', $className));
+        }
 
-        return $class;
+        return $providerObject;
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Metapixel\PostcodeAPI\Event;
 
+use Metapixel\PostcodeAPI\Entity\Address;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
 use Symfony\Contracts\EventDispatcher\Event;
-use Metapixel\PostcodeAPI\Entity\Address;
 
 class PreSearchRequestEvent extends Event
 {

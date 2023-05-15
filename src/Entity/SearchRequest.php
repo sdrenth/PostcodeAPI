@@ -6,5 +6,4 @@ namespace Metapixel\PostcodeAPI\Entity;
 
 class SearchRequest extends Address
 {
-
 }

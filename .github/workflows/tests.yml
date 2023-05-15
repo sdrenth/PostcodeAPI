@@ -16,3 +16,6 @@ jobs:
     - uses: php-actions/phpstan@v3
       with:
         path: src/
+
+    - name: Run ecs
+      run: vendor/bin/ecs check src

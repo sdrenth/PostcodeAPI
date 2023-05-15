@@ -68,6 +68,7 @@ abstract class Provider implements ProviderInterface
 
     public function find(string $zipcode): Address
     {
+        /** @var SearchRequest $searchRequest */
         $searchRequest = (new SearchRequest())
             ->setZipcode($zipcode);
 
@@ -81,6 +82,7 @@ abstract class Provider implements ProviderInterface
 
     public function findByZipcodeAndHouseNumber(string $zipcode, string $houseNumber): Address
     {
+        /** @var SearchRequest $searchRequest */
         $searchRequest = (new SearchRequest())
             ->setZipcode($zipcode)
             ->setHouseNumber($houseNumber);

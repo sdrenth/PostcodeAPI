@@ -13,7 +13,7 @@ abstract class AbstractPro6PP extends Provider
 {
     CONST BASE_URL = 'https://api.pro6pp.nl/v2/autocomplete/';
 
-    protected $languageEndpoint = 'nl';
+    protected string $languageEndpoint = 'nl';
 
     public function findBySearchRequest(SearchRequest $searchRequest): Address
     {

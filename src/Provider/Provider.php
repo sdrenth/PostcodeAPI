@@ -18,6 +18,8 @@ abstract class Provider implements ProviderInterface
 
     protected ?string $apiKey;
 
+    protected ?string $apiSecret;
+
     protected string $requestUrl = '';
 
     protected array $options = [];
@@ -34,9 +36,23 @@ abstract class Provider implements ProviderInterface
         return $this->apiKey;
     }
 
-    public function setApiKey(?string $apiKey): void
+    public function setApiKey(?string $apiKey): self
     {
         $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    public function getApiSecret(): ?string
+    {
+        return $this->apiSecret;
+    }
+
+    public function setApiSecret(?string $apiSecret): self
+    {
+        $this->apiSecret = $apiSecret;
+
+        return $this;
     }
 
     public function getRequestUrl(): string

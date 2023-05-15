@@ -145,4 +145,15 @@ class Address
 
         return $this;
     }
+
+    public function getHouseNumberInclAddition(): string
+    {
+        $output = $this->getHouseNumber() ?? '';
+
+        if (null !== $this->getAddition()) {
+            $output .= $this->getAddition();
+        }
+
+        return $output;
+    }
 }

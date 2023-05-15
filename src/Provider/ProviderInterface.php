@@ -12,7 +12,11 @@ interface ProviderInterface
 {
     public function getApiKey(): ?string;
 
-    public function setApiKey(?string $apiKey): void;
+    public function setApiKey(?string $apiKey): self;
+
+    public function getApiSecret(): ?string;
+
+    public function setApiSecret(?string $apiSecret): self;
 
     public function getRequestUrl(): string;
 

@@ -1,8 +1,15 @@
 # PostcodeAPI
+![Tests](https://github.com/sdrenth/PostcodeAPI/actions/workflows/tests.yml/badge.svg)
+
 This package implements a generic approach for retrieving address details based on zipcode and housenumber to perform address validation. 
 The goal of this package is to have a single package which supports your favorite Postcode API providers so you can easily switch between providers without having to rewrite all of your code or need to have extensive knowledge about all the providers, because this package handles that for you.
 
 This package is platform independent and can be used in any modern PHP application.
+
+## Providers
+The following providers are currently supported:
+- Pro6PP
+- Postcodeapi.nu
 
 ### Events
 Pre and post search events are dispatched using the Symfony Event Dispatcher component.
@@ -31,10 +38,6 @@ class PostcodeAPISubscriber implements EventSubscriberInterface
     }
 }
 ```
-
-The following providers are currently supported:
-- Pro6PP
-- postcodeapi.nu
 
 Additional features to be developed:
 * Adding an optional caching layer to cache address responses (perhaps database)?

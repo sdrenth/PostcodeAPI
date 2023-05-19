@@ -12,6 +12,7 @@ The following providers are currently supported:
 - [Postcodeapi.nu](Postcodeapi.nu)
 - [Postcode.nl](https://www.postcode.nl/)
 - [Postcodes.nu](https://postcodes.nu/)
+- [PostNL](https://www.postnl.nl/)
 - [Pro6PP](https://www.pro6pp.nl/)
 - [Spikkl](https://www.spikkl.nl/)
 

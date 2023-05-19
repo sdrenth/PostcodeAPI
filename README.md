@@ -8,12 +8,12 @@ This package is platform independent and can be used in any modern PHP applicati
 
 ## Providers
 The following providers are currently supported:
-- Apicheck.nl
-- Postcodeapi.nu
-- Postcode.nl
-- Postcodes.nu
-- Pro6PP
-- Spikkl
+- [Apicheck.nl](https://apicheck.nl/)
+- [Postcodeapi.nu](Postcodeapi.nu)
+- [Postcode.nl](https://www.postcode.nl/)
+- [Postcodes.nu](https://postcodes.nu/)
+- [Pro6PP](https://www.pro6pp.nl/)
+- [Spikkl](https://www.spikkl.nl/)
 
 ### Events
 Pre and post search events are dispatched using the Symfony Event Dispatcher component.

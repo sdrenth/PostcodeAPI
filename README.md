@@ -51,6 +51,9 @@ Additional features to be developed:
 See the example below on how to use this package. Please note to always provide the provider as `{locale}.{Provider class}`.
 
 ```php
+use Metapixel\PostcodeAPI\Provider\nl_NL\Pro6PP;
+
+/** @var Pro6PP $provider */
 $provider = ProviderFactory::create('nl_NL.Pro6PP');
 $provider->setApiKey('YOUR_API_KEY');
 

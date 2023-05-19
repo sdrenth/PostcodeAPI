@@ -9,9 +9,14 @@ use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
 use Metapixel\PostcodeAPI\Exception\MethodNotSupportedException;
 use Metapixel\PostcodeAPI\Provider\Provider;
+use Metapixel\PostcodeAPI\Trait\ApiKeyTrait;
+use Metapixel\PostcodeAPI\Trait\ApiSecretTrait;
 
 class PostcodeNL extends Provider
 {
+    use ApiKeyTrait,
+        ApiSecretTrait;
+
     public const BASE_URL = 'https://api.postcode.eu/nl/v1/addresses/postcode';
 
     public function find(string $zipcode): Address

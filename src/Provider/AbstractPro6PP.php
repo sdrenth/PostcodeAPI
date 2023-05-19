@@ -7,9 +7,12 @@ namespace Metapixel\PostcodeAPI\Provider;
 use Metapixel\PostcodeAPI\Entity\Address;
 use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
+use Metapixel\PostcodeAPI\Trait\ApiKeyTrait;
 
 abstract class AbstractPro6PP extends Provider
 {
+    use ApiKeyTrait;
+
     public const BASE_URL = 'https://api.pro6pp.nl/v2/autocomplete/';
 
     protected string $languageEndpoint = 'nl';
@@ -84,7 +87,7 @@ abstract class AbstractPro6PP extends Provider
             ->setMunicipality($response['municipality'] ?? null)
             ->setProvince($response['province'] ?? null)
             ->setStreet($response['street'] ?? null)
-            ->setHouseNumber($response['streetNumber'] ? (string) $response['streetNumber'] : null)
+            ->setHouseNumber(isset($response['streetNumber']) ? (string) $response['streetNumber'] : null)
             ->setAddition($response['premise'] ?? null)
         ;
 

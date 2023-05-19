@@ -10,14 +10,6 @@ use Metapixel\PostcodeAPI\Entity\SearchRequest;
 
 interface ProviderInterface
 {
-    public function getApiKey(): ?string;
-
-    public function setApiKey(?string $apiKey): self;
-
-    public function getApiSecret(): ?string;
-
-    public function setApiSecret(?string $apiSecret): self;
-
     public function getRequestUrl(): string;
 
     public function setRequestUrl(string $requestUrl): void;

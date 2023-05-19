@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Metapixel\PostcodeAPI\Entity;
 
+use Metapixel\PostcodeAPI\Formatter\ZipcodeFormatter;
+
 class Address
 {
     protected ?string $country = null;
@@ -105,6 +107,10 @@ class Address
 
     public function setZipcode(?string $zipcode): self
     {
+        if (is_string($zipcode)) {
+            $zipcode = ZipcodeFormatter::format($zipcode);
+        }
+
         $this->zipcode = $zipcode;
 
         return $this;

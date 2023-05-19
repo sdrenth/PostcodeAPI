@@ -7,9 +7,12 @@ namespace Metapixel\PostcodeAPI\Provider;
 use Metapixel\PostcodeAPI\Entity\Address;
 use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
+use Metapixel\PostcodeAPI\Trait\ApiKeyTrait;
 
 abstract class AbstractApiCheck extends Provider
 {
+    use ApiKeyTrait;
+
     public const BASE_URL = 'https://api.apicheck.nl/lookup/v1/postalcode';
 
     protected string $languageEndpoint = 'nl';
@@ -67,6 +70,10 @@ abstract class AbstractApiCheck extends Provider
     public function toAddress(array $response): Address
     {
         $address = new Address();
+
+        if (!isset($response['data'], $response['error']) || true === $response['error']) {
+            return $address;
+        }
 
         $address
             ->setCountry($response['data']['Country']['name'] ?? null)

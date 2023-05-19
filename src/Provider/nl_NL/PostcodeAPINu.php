@@ -9,9 +9,12 @@ use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
 use Metapixel\PostcodeAPI\Exception\MethodNotSupportedException;
 use Metapixel\PostcodeAPI\Provider\Provider;
+use Metapixel\PostcodeAPI\Trait\ApiKeyTrait;
 
 class PostcodeAPINu extends Provider
 {
+    use ApiKeyTrait;
+
     public const BASE_URL = 'https://api.postcodeapi.nu/v3/lookup';
 
     public function find(string $zipcode): Address
@@ -68,7 +71,7 @@ class PostcodeAPINu extends Provider
         if (isset($response['location']['coordinates']) && is_array($response['location']['coordinates'])) {
             $coordinates = new Coordinates();
 
-            [$latitude, $longitude] = $response['location']['coordinates'];
+            [$longitude, $latitude] = $response['location']['coordinates'];
 
             $coordinates
                 ->setLatitude($latitude)

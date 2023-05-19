@@ -9,6 +9,11 @@ use Metapixel\PostcodeAPI\Provider\Provider;
 
 class ProviderFactory
 {
+    /**
+     * @param string $provider
+     *
+     * @return Provider
+     */
     public static function create(string $provider): Provider
     {
         [$code, $className] = explode('.', $provider);

@@ -9,9 +9,12 @@ use Metapixel\PostcodeAPI\Entity\Coordinates;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
 use Metapixel\PostcodeAPI\Exception\MethodNotSupportedException;
 use Metapixel\PostcodeAPI\Provider\Provider;
+use Metapixel\PostcodeAPI\Trait\ApiKeyTrait;
 
 class Spikkl extends Provider
 {
+    use ApiKeyTrait;
+
     public const BASE_URL = 'https://api.spikkl.nl/geo/nld/lookup.json';
 
     public function find(string $zipcode): Address
@@ -53,12 +56,22 @@ class Spikkl extends Provider
     {
         $address = new Address();
 
+        $province = null;
+        if (isset($response['results'][0]['administrative_areas'])) {
+            foreach ($response['results'][0]['administrative_areas'] as $administrativeArea) {
+                if (isset($administrativeArea['type'], $administrativeArea['name']) && 'province' === $administrativeArea['type']) {
+                    $province = $administrativeArea['name'];
+                }
+            }
+        }
+
         $address
             ->setCountry($response['results'][0]['country']['name'] ?? null)
-            ->setCountryCode($response['results'][0]['country']['iso3_code'] ?? null)
+            ->setCountryCode($response['results'][0]['country']['iso2_code'] ?? null)
             ->setZipcode($response['results'][0]['postal_code'] ?? null)
             ->setCity($response['results'][0]['city'] ?? null)
             ->setMunicipality($response['results'][0]['municipality'] ?? null)
+            ->setProvince($province)
             ->setStreet($response['results'][0]['street_name'] ?? null)
             ->setHouseNumber($response['results'][0]['street_number'] ? (string) $response['results'][0]['street_number'] : null)
         ;

@@ -9,6 +9,7 @@ use Metapixel\PostcodeAPI\Entity\Address;
 use Metapixel\PostcodeAPI\Entity\SearchRequest;
 use Metapixel\PostcodeAPI\Event\PostSearchRequestEvent;
 use Metapixel\PostcodeAPI\Event\PreSearchRequestEvent;
+use Metapixel\PostcodeAPI\Factory\SearchRequestFactory;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -16,43 +17,17 @@ abstract class Provider implements ProviderInterface
 {
     public EventDispatcher $dispatcher;
 
-    protected ?string $apiKey;
-
-    protected ?string $apiSecret;
-
     protected string $requestUrl = '';
 
     protected array $options = [];
 
     protected Client $httpClient;
 
+    protected SearchRequest $searchRequest;
+
     public function __construct()
     {
         $this->dispatcher = new EventDispatcher();
-    }
-
-    public function getApiKey(): ?string
-    {
-        return $this->apiKey;
-    }
-
-    public function setApiKey(?string $apiKey): self
-    {
-        $this->apiKey = $apiKey;
-
-        return $this;
-    }
-
-    public function getApiSecret(): ?string
-    {
-        return $this->apiSecret;
-    }
-
-    public function setApiSecret(?string $apiSecret): self
-    {
-        $this->apiSecret = $apiSecret;
-
-        return $this;
     }
 
     public function getRequestUrl(): string
@@ -83,10 +58,7 @@ abstract class Provider implements ProviderInterface
 
     public function find(string $zipcode): Address
     {
-        /** @var SearchRequest $searchRequest */
-        $searchRequest = (new SearchRequest())
-            ->setZipcode($zipcode)
-        ;
+        $searchRequest = SearchRequestFactory::createByZipcode($zipcode);
 
         return $this->findBySearchRequest($searchRequest);
     }
@@ -98,17 +70,15 @@ abstract class Provider implements ProviderInterface
 
     public function findByZipcodeAndHouseNumber(string $zipcode, string $houseNumber): Address
     {
-        /** @var SearchRequest $searchRequest */
-        $searchRequest = (new SearchRequest())
-            ->setZipcode($zipcode)
-            ->setHouseNumber($houseNumber)
-        ;
+        $searchRequest = SearchRequestFactory::createByZipcodeAndHouseNumber($zipcode, $houseNumber);
 
         return $this->findBySearchRequest($searchRequest);
     }
 
     public function findBySearchRequest(SearchRequest $searchRequest): Address
     {
+        $this->setSearchRequest($searchRequest);
+
         /** @var PostSearchRequestEvent $event */
         $event = $this->dispatchPreEvent($searchRequest);
 
@@ -136,5 +106,15 @@ abstract class Provider implements ProviderInterface
         $event = new PreSearchRequestEvent($searchRequest, $address);
 
         return $this->dispatcher->dispatch($event, PreSearchRequestEvent::NAME);
+    }
+
+    public function getSearchRequest(): SearchRequest
+    {
+        return $this->searchRequest;
+    }
+
+    public function setSearchRequest(SearchRequest $searchRequest): void
+    {
+        $this->searchRequest = $searchRequest;
     }
 }

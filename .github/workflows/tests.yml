@@ -15,6 +15,7 @@ jobs:
 
     - uses: php-actions/composer@v6
 
+  test:
     - uses: php-actions/phpstan@v3
       with:
         path: src/

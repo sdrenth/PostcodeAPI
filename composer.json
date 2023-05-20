@@ -1,6 +1,6 @@
 {
   "name": "metapixel/postcodeapi",
-  "description": "",
+  "description": "Universal PHP Postcode API.",
   "require": {
     "php": "^8.1",
     "guzzlehttp/guzzle": "^7.5",

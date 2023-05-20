@@ -48,7 +48,6 @@ class PostcodeService extends Provider
     public function request(): array
     {
         $options = [
-            'debug' => true,
             'headers' => [
                 'X-ClientId' => $this->getApiUsername(),
                 'X-SecureCode' => $this->getApiPassword(),
